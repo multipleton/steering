@@ -1,0 +1,32 @@
+{
+  "name": "@multipleton/steering",
+  "version": "1.0.0",
+  "description": "Steering JavaScript Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run-script eslint && npm run-script prettier:check && mocha **/*.test.js",
+    "eslint": "eslint --ext .js,.jsx,.ts,.tsx ./",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/multipleton/steering.git"
+  },
+  "author": "Yehor Bublyk <yehor.bk@generics.space>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/multipleton/steering/issues"
+  },
+  "homepage": "https://github.com/multipleton/steering#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
+    "mocha": "^8.1.3",
+    "prettier": "^2.1.2"
+  }
+}
