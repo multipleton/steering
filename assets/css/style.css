@@ -1,0 +1,10 @@
+body {
+  margin: 20px;
+}
+
+#game-field {
+  width: 1000px;
+  height: 562.5px;
+  border: 1px solid gray;
+  background-color: gainsboro;
+}
