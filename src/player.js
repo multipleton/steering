@@ -16,7 +16,7 @@ function Player() {
     angle: 0,
     speed: 0,
     speedStep: 1,
-    angleStep: 10,
+    angleStep: 4,
   };
   EventEmiter.subscribe('arrow_up', () => this.increaseSpeed());
   EventEmiter.subscribe('arrow_down', () => this.decreaseSpeed());
@@ -39,13 +39,13 @@ Player.prototype.update = function () {
 
 Player.prototype.increaseSpeed = function () {
   const { specs } = this;
-  if (specs.speed + specs.speedStep > 5) return;
+  if (specs.speed === 3) return;
   specs.speed += specs.speedStep;
 };
 
 Player.prototype.decreaseSpeed = function () {
   const { specs } = this;
-  if (specs.speed - specs.speedStep < 0) return;
+  if (specs.speed === -1) return;
   specs.speed -= specs.speedStep;
 };
 
