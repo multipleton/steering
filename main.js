@@ -6,7 +6,11 @@ const renderer = new Renderer(context);
 const gameLoop = new GameLoop(renderer);
 const engine = new Engine(gameLoop);
 
+const keyboardHandler = new KeyboardHandler();
+document.addEventListener('keydown', keyboardHandler);
+
 const player = new Player();
 renderer.register(player.getProp());
+gameLoop.register(player);
 
 engine.run();

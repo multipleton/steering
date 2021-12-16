@@ -9,13 +9,19 @@ Renderer.prototype.register = function (prop) {
   this.props.push(prop);
 };
 
-Renderer.prototype.rect = function ({ x, y, width, height }) {
+Renderer.prototype.rect = function ({ x, y, width, height, radian }) {
+  if (radian) {
+    this.context.translate(x, y);
+    this.context.rotate(radian);
+    this.context.translate(-x, -y);
+  }
   context.fillRect(x, y, width, height);
 };
 
 Renderer.prototype.draw = function (prop) {
   const { color, type, options } = prop;
   this.context.fillStyle = color || 'black';
+  this.context.setTransform(1, 0, 0, 1, 0, 0);
   if (!type) return;
   this[type](options);
 };
