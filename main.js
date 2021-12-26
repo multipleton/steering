@@ -13,4 +13,9 @@ const player = new Player();
 renderer.register(player.getProp());
 gameLoop.register(player);
 
+const people = new People(player);
+renderer.register(people.getProp());
+gameLoop.register(people);
+
+
 engine.run();
