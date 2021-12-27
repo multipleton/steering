@@ -17,7 +17,19 @@ renderer.register(player.getProp());
 gameLoop.register(player);
 
 for (let i = 0; i < 5; i++) {
-  const human = new Human(player, { x: 100, y: 300 });
+  const human = new Human(player, { x: 300, y: 120 });
+  renderer.register(human.getProp());
+  gameLoop.register(human);
+}
+
+for (let i = 0; i < 5; i++) {
+  const human = new Human(player, { x: 1300, y: 80 });
+  renderer.register(human.getProp());
+  gameLoop.register(human);
+}
+
+for (let i = 0; i < 5; i++) {
+  const human = new Human(player, { x: 1000, y: 880 });
   renderer.register(human.getProp());
   gameLoop.register(human);
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 
-const CHANGE_INTERVAL = 240;
+const CHANGE_INTERVAL = 300;
 const BOOST = 1;
 const SPEED = 0.5;
 
@@ -24,8 +24,6 @@ function Human(player, { x, y }) {
       height: 8,
     },
   };
-  console.log('interval', this.interval);
-  console.log('start coords', this.prop.options.x, this.prop.options.y);
 }
 
 Human.prototype.getProp = function () {
