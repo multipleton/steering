@@ -2,4 +2,5 @@
 
 const PropType = {
   RECT: 'rect',
+  CURBE: 'curve',
 };

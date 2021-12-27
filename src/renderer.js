@@ -18,11 +18,20 @@ Renderer.prototype.rect = function ({ x, y, width, height, radian }) {
   context.fillRect(x, y, width, height);
 };
 
+Renderer.prototype.curve = function ({ lines }) {
+  this.context.beginPath();
+  const start = lines[0];
+  this.context.moveTo(start.x, start.y);
+  lines.forEach(({ cpx, cpy, x, y }) =>
+    this.context.quadraticCurveTo(cpx, cpy, x, y));
+  this.context.stroke();
+};
+
 Renderer.prototype.draw = function (prop) {
   const { color, type, options } = prop;
+  if (!type) return;
   this.context.fillStyle = color || 'black';
   this.context.setTransform(1, 0, 0, 1, 0, 0);
-  if (!type) return;
   this[type](options);
 };
 
