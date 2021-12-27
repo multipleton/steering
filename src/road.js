@@ -2,16 +2,33 @@
 
 function Road(points) {
   const { start, inner, outer, control } = this.buildProps(points);
-  const coating = this.calculateCoating(inner.options.points, outer.options.points);
+  const coating = this.calculateCoating(
+    inner.options.points,
+    outer.options.points,
+  );
   this.prop = [start, inner, outer, ...control];
   this.specs = {
     start: start.options.points,
     inner: inner.options.points,
     outer: outer.options.points,
     control: control.map(entry => entry.options.points),
+    centerControls: [
+      (() => {
+        const [inner, outer] = start.options.points;
+        return Road.getCentered(inner, outer);
+      })(),
+      ...control.map(entry => {
+        const [inner, outer] = entry.options.points;
+        return Road.getCentered(inner, outer);
+      }),
+    ],
     coating,
   };
 }
+
+Road.getCentered = function (inner, outer) {
+  return { x: (inner.x + outer.x) / 2, y: (inner.y + outer.y) / 2 };
+};
 
 Road.Random = function () {
   return Road.Builder()

@@ -16,6 +16,14 @@ const player = new Player();
 renderer.register(player.getProp());
 gameLoop.register(player);
 
+const racer = new Racer(road, { x: 450, y: 900 });
+renderer.register(racer.getProp());
+gameLoop.register(racer);
+
+const racer1 = new Racer(road, { x: 380, y: 900 });
+renderer.register(racer1.getProp());
+gameLoop.register(racer1);
+
 for (let i = 0; i < 5; i++) {
   const human = new Human(player, { x: 300, y: 120 });
   renderer.register(human.getProp());
