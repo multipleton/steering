@@ -18,6 +18,15 @@ Renderer.prototype.rect = function ({ x, y, width, height, radian }) {
   context.fillRect(x, y, width, height);
 };
 
+Renderer.prototype.line = function ({ points }) {
+  this.context.beginPath();
+  const start = points[0];
+  this.context.moveTo(start.x, start.y);
+  points.forEach(({ x, y }) =>
+    this.context.lineTo(x, y));
+  this.context.stroke();
+};
+
 Renderer.prototype.curve = function ({ points }) {
   this.context.beginPath();
   const start = points[0];
