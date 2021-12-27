@@ -5,5 +5,7 @@ const Color = {
   RED: 'red',
   GREEN: 'green',
   BLUE: 'blue',
+  YELLOW: 'yellow',
+  ORANGE: 'orange',
   WHITE: 'white',
 };
