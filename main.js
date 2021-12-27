@@ -9,6 +9,9 @@ const engine = new Engine(gameLoop);
 const keyboardHandler = new KeyboardHandler();
 document.addEventListener('keydown', keyboardHandler);
 
+const road = Road.Random();
+renderer.register(road.getProp());
+
 const player = new Player();
 renderer.register(player.getProp());
 gameLoop.register(player);

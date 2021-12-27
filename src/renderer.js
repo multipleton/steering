@@ -6,7 +6,11 @@ function Renderer(context) {
 }
 
 Renderer.prototype.register = function (prop) {
-  this.props.push(prop);
+  if (Array.isArray(prop)) {
+    this.props.push(...prop);
+  } else {
+    this.props.push(prop);
+  }
 };
 
 Renderer.prototype.rect = function ({ x, y, width, height, radian }) {
@@ -18,11 +22,30 @@ Renderer.prototype.rect = function ({ x, y, width, height, radian }) {
   context.fillRect(x, y, width, height);
 };
 
+Renderer.prototype.line = function ({ points }) {
+  this.context.beginPath();
+  const start = points[0];
+  this.context.moveTo(start.x, start.y);
+  points.forEach(({ x, y }) =>
+    this.context.lineTo(x, y));
+  this.context.stroke();
+};
+
+Renderer.prototype.curve = function ({ points }) {
+  this.context.beginPath();
+  const start = points[0];
+  this.context.moveTo(start.x, start.y);
+  points.forEach(({ cpx, cpy, x, y }) =>
+    this.context.quadraticCurveTo(cpx, cpy, x, y));
+  this.context.stroke();
+};
+
 Renderer.prototype.draw = function (prop) {
   const { color, type, options } = prop;
-  this.context.fillStyle = color || 'black';
-  this.context.setTransform(1, 0, 0, 1, 0, 0);
   if (!type) return;
+  this.context.fillStyle = color || 'black';
+  this.context.strokeStyle = color || 'black';
+  this.context.setTransform(1, 0, 0, 1, 0, 0);
   this[type](options);
 };
 
