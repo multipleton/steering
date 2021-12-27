@@ -47,15 +47,16 @@ Player.prototype.updateSpeed = function () {
   const { coating } = this.road;
   const { x, y } = this.prop.options;
   const playerIn = coating.some(entry => {
-    const upX = Math.abs(x - entry.leftUp.x) > x && x < Math.abs(x - entry.rightUp.x);
-    const leftY = Math.abs(y - entry.leftDown.y) > y && y < Math.abs(y - entry.leftDown.y);
-    const downX = Math.abs(x - entry.leftDown.x) > x && x < Math.abs(x - entry.rightDown.x);
-    const rightY = Math.abs(y - entry.rightDown.y) > y && y < Math.abs(y - entry.rightDown.y);
-    return upX && leftY && rightY && downX;
+    /*
+      const upX = Math.abs(x - entry.leftUp.x) > x && x < Math.abs(x - entry.rightUp.x);
+      const leftY = Math.abs(y - entry.leftDown.y) > y && y < Math.abs(y - entry.leftDown.y);
+      const downX = Math.abs(x - entry.leftDown.x) > x && x < Math.abs(x - entry.rightDown.x);
+      const rightY = Math.abs(y - entry.rightDown.y) > y && y < Math.abs(y - entry.rightDown.y);
+      return upX && leftY && rightY && downX;
+      : (
+    */
+    return true;
   });
-  if (!playerIn) {
-    console.log('out');
-  }
   this.specs.speedCoefficient = playerIn ? 100 : 50;
 };
 
