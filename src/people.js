@@ -31,9 +31,8 @@ People.prototype.update = function () {
 
   distance = Math.sqrt(Math.pow((playerX - prop.options.x), 2) + Math.pow((playerY - prop.options.y), 2));
 
-
-  if (distance < 70) {
-    const BOOST = 2;
+  if (distance < 50) {
+    const BOOST = 0.8;
     if (playerX > prop.options.x) {
       prop.options.x += -BOOST;
     }
