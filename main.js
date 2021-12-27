@@ -12,7 +12,7 @@ document.addEventListener('keydown', keyboardHandler);
 const road = Road.Random();
 renderer.register(road.getProp());
 
-const player = new Player();
+const player = new Player(road.getSpecs());
 renderer.register(player.getProp());
 gameLoop.register(player);
 
