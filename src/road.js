@@ -1,13 +1,7 @@
 /* eslint-disable no-undef */
 
 function Road(points = []) {
-  this.prop = {
-    color: Color.BLACK,
-    type: PropType.LINE,
-    options: {
-      points: [...points],
-    },
-  };
+  this.prop = this.buildProps(points);
 }
 
 Road.Random = function () {
@@ -68,4 +62,36 @@ Road.Builder = function () {
 
 Road.prototype.getProp = function () {
   return this.prop;
+};
+
+Road.prototype.buildProps = function (points) {
+  /* const inner = Line(Color.BLACK, points);
+  const outer = Line(Color.BLACK, points.map(point => {
+    const angle = (Math.atan2(point.y, point.x) * 180) / Math.PI;
+    const x = point.x + Math.cos(angle) * 40;
+    const y = point.y + Math.sin(angle) * 40;
+    return { x, y };
+  })); */
+  const innerPoints = [];
+  const outerPoints = [];
+  for (let i = 0; i < points.length - 1; i++) {
+    const next = points[i + 1];
+    const current = points[i];
+    const angle = (Math.atan2(next.y - current.y, next.x - current.y) * 180) / Math.PI;
+    const innerX = Math.cos(angle) * (current.x - 20 + (next.x - current.x - 20) * Math.cos(angle) - (next.y - current.y - 20) * Math.sin(angle));
+    const innerY = Math.sin(angle) * (current.y - 20 + (next.x - current.x - 20) * Math.sin(angle) - (next.y - current.y - 20) * Math.cos(angle));
+    const outerX = Math.cos(angle) * (current.x + 20 + (next.x - current.x + 20) * Math.cos(angle) - (next.y - current.y + 20) * Math.sin(angle));
+    const outerY = Math.sin(angle) * (current.y + 20 + (next.x - current.x + 20) * Math.sin(angle) - (next.y - current.y + 20) * Math.cos(angle));
+    innerPoints.push({ x: innerX, y: innerY });
+    outerPoints.push({ x: outerX, y: outerY });
+  }
+  const inner = Line(Color.BLACK, innerPoints);
+  const outer = Line(Color.BLACK, outerPoints);
+  const control = [];
+  /* for (let i = 0; i < points.length; i++) {
+    const left = inner.options.points[i];
+    const right = outer.options.points[i];
+    control.push(Line(Color.RED, [left, right]));
+  } */
+  return [inner, outer, ...control];
 };

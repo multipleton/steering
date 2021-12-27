@@ -18,6 +18,7 @@
     "arrow-parens": "off",
     "implicit-arrow-linebreak": "off",
     "func-names": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "no-plusplus": "off"
   }
 }

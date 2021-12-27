@@ -6,7 +6,13 @@ function Renderer(context) {
 }
 
 Renderer.prototype.register = function (prop) {
-  this.props.push(prop);
+  if (Array.isArray(prop)) {
+    this.props.push(...prop);
+  } else {
+    this.props.push(prop);
+  }
+  console.log(prop);
+  console.log(this.props);
 };
 
 Renderer.prototype.rect = function ({ x, y, width, height, radian }) {
