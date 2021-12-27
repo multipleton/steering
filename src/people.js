@@ -11,7 +11,7 @@ function People(player) {
     color: Color.BLACK,
     type: PropType.RECT,
     options: {
-      x: 500,
+      x: 100,
       y: 300,
       width: 8,
       height: 8,
@@ -27,16 +27,26 @@ People.prototype.update = function () {
   const { prop } = this;
 
   playerX = this.player.getProp().options.x;
-  playerY = this.player.getProp().options.x;
+  playerY = this.player.getProp().options.y;
 
   distance = Math.sqrt(Math.pow((playerX - prop.options.x), 2) + Math.pow((playerY - prop.options.y), 2));
-  // console.log('start');
-  // console.log('player', playerX, playerY);
-  // console.log(prop.options.x, prop.options.y)
-  // console.log(distance);
 
-  if (distance < 200) {
-    prop.options.x += 10;
+
+  if (distance < 70) {
+    const BOOST = 2;
+    if (playerX > prop.options.x) {
+      prop.options.x += -BOOST;
+    }
+    if (playerX < prop.options.x) {
+      prop.options.x += BOOST;
+    }
+    if (playerY > prop.options.y) {
+      prop.options.y += -BOOST;
+    }
+    if (playerY < prop.options.y) {
+      prop.options.y += BOOST;
+    }
+    
     return;
   }
 
