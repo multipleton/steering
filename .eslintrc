@@ -16,6 +16,8 @@
   "rules": {
     "operator-linebreak": "off",
     "arrow-parens": "off",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "func-names": "off",
+    "object-curly-newline": "off"
   }
 }
