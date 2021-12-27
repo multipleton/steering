@@ -2,9 +2,14 @@
 
 function Road(points) {
   const { start, inner, outer, control } = this.buildProps(points);
+  const coating = this.calculateCoating(inner.options.points, outer.options.points);
   this.prop = [start, inner, outer, ...control];
   this.specs = {
     start: start.options.points,
+    inner: inner.options.points,
+    outer: outer.options.points,
+    control: control.map(entry => entry.options.points),
+    coating,
   };
 }
 
@@ -86,4 +91,21 @@ Road.prototype.buildProps = function (points) {
     control.push(Line(Color.GREEN, [points.inner[i], points.outer[i]]));
   }
   return { start, inner, outer, control };
+};
+
+Road.prototype.calculateCoating = function (inner, outer) {
+  const result = [];
+  for (let i = 1; i < inner.length; i++) {
+    const leftUp = inner[i - 1];
+    const leftDown = outer[i - 1];
+    const rightUp = inner[i];
+    const rightDown = outer[i];
+    result.push({
+      leftUp,
+      leftDown,
+      rightUp,
+      rightDown,
+    });
+  }
+  return result;
 };
