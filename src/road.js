@@ -1,72 +1,64 @@
 /* eslint-disable no-undef */
 
-function Road(lines = []) {
+function Road(points = []) {
   this.prop = {
     color: Color.BLACK,
     type: PropType.CURBE,
     options: {
-      lines: [...lines],
+      points: [...points],
     },
   };
 }
 
-Road.Curve = {
-  IN: false,
-  OUT: true,
-};
-
 Road.Random = function () {
   return Road.Builder()
-    .start({ x: 220, y: 900 })
-    .to({ x: 1600, y: 800, curve: Road.Curve.IN })
-    .to({ x: 1550, y: 350, curve: Road.Curve.IN })
-    .to({ x: 800, y: 220, curve: Road.Curve.IN })
-    .to({ x: 350, y: 200, curve: Road.Curve.OUT })
-    .end({ curve: Road.Curve.IN });
+    .start({ x: 290, y: 850 })
+    .to({ x: 750, y: 920 })
+    .to({ x: 1600, y: 870 })
+    .to({ x: 1550, y: 350 })
+    .to({ x: 1100, y: 180 })
+    .to({ x: 500, y: 350 })
+    .to({ x: 200, y: 200 })
+    .end();
 };
 
 Road.Builder = function () {
-  const lines = [];
-  const prepareCurvePos = (start, end, curve) => {
+  const points = [];
+  const prepareLine = (start, end) => {
     const centerX = (start.x + end.x) / 2;
     const centerY = (start.y + end.y) / 2;
-    const distance = Math.sqrt((end.x - start.x) ** 2 + (end.y - start.y) ** 2) / 4;
-    const angle = Math.abs(((Math.atan2(end.y - start.y, end.x - start.x) * 180) / Math.PI));
-    let cpx;
-    let cpy;
-    if (angle > 0 && angle < 90) {
-      cpx = centerX + Math.cos(angle) * (curve ? distance : -distance);
-      cpy = centerY + Math.sin(angle) * (curve ? distance : -distance);
-    } else if (angle > 90 && angle < 180) {
-      cpx = centerX + Math.cos(angle) * (curve ? distance : -distance);
-      cpy = centerY + Math.sin(angle) * (curve ? -distance : distance);
-    } else if (angle === 0) {
-      cpx = centerX;
-      cpy = centerY + (curve ? distance : -distance);
-    } else if (angle === 90) {
-      cpx = centerX + (curve ? -distance : distance);
-      cpy = centerY;
-    } else if (angle === 180) {
-      cpx = centerX;
-      cpy = centerY + (curve ? -distance : distance);
-    }
-    return { cpx, cpy };
+    const cpxStart = (centerX + start.x) / 2;
+    const cpxEnd = (centerX + end.x) / 2;
+    return {
+      start: {
+        x: centerX,
+        y: centerY,
+        cpx: cpxStart,
+        cpy: start.y,
+      },
+      end: {
+        x: end.x,
+        y: end.y,
+        cpx: cpxEnd,
+        cpy: end.y,
+      },
+    };
   };
-  const end = ({ curve }) => {
-    const previous = lines[lines.length - 1];
-    const { x, y } = lines[0];
-    const { cpx, cpy } = prepareCurvePos(previous, { x, y }, curve);
-    lines.push({ x, y, cpx, cpy });
-    return new Road(lines);
+  const end = () => {
+    const previous = points[points.length - 1];
+    const { x, y } = points[0];
+    const line = prepareLine(previous, { x, y });
+    points.push(line.start, line.end);
+    return new Road(points);
   };
-  const to = ({ x, y, curve }) => {
-    const previous = lines[lines.length - 1];
-    const { cpx, cpy } = prepareCurvePos(previous, { x, y }, curve);
-    lines.push({ x, y, cpx, cpy });
+  const to = ({ x, y }) => {
+    const previous = points[points.length - 1];
+    const line = prepareLine(previous, { x, y });
+    points.push(line.start, line.end);
     return { to, end };
   };
   const start = ({ x, y }) => {
-    lines.push({ x, y });
+    points.push({ x, y });
     return { to, end };
   };
   return {

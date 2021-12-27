@@ -18,11 +18,11 @@ Renderer.prototype.rect = function ({ x, y, width, height, radian }) {
   context.fillRect(x, y, width, height);
 };
 
-Renderer.prototype.curve = function ({ lines }) {
+Renderer.prototype.curve = function ({ points }) {
   this.context.beginPath();
-  const start = lines[0];
+  const start = points[0];
   this.context.moveTo(start.x, start.y);
-  lines.forEach(({ cpx, cpy, x, y }) =>
+  points.forEach(({ cpx, cpy, x, y }) =>
     this.context.quadraticCurveTo(cpx, cpy, x, y));
   this.context.stroke();
 };
