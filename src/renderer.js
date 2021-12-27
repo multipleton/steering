@@ -11,8 +11,6 @@ Renderer.prototype.register = function (prop) {
   } else {
     this.props.push(prop);
   }
-  console.log(prop);
-  console.log(this.props);
 };
 
 Renderer.prototype.rect = function ({ x, y, width, height, radian }) {
@@ -46,6 +44,7 @@ Renderer.prototype.draw = function (prop) {
   const { color, type, options } = prop;
   if (!type) return;
   this.context.fillStyle = color || 'black';
+  this.context.strokeStyle = color || 'black';
   this.context.setTransform(1, 0, 0, 1, 0, 0);
   this[type](options);
 };
