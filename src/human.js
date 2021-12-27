@@ -1,14 +1,15 @@
 /* eslint-disable no-undef */
 
 const CHANGE_INTERVAL = 240;
-const BOOST = 0.8;
+const BOOST = 1;
+const SPEED = 0.5;
 
 function Human(player, { x, y }) {
   this.player = player;
   this.interval = Math.floor(Math.random() * 40) + CHANGE_INTERVAL - 20;
   this.specs = {
     dx: 0,
-    dy: 0.5,
+    dy: SPEED,
     baseX: Math.floor(Math.random() * 40) + x - 20,
     baseY: Math.floor(Math.random() * 40) + y - 20,
     i: this.interval,
@@ -23,6 +24,8 @@ function Human(player, { x, y }) {
       height: 8,
     },
   };
+  console.log('interval', this.interval);
+  console.log('start coords', this.prop.options.x, this.prop.options.y);
 }
 
 Human.prototype.getProp = function () {
@@ -52,6 +55,32 @@ Human.prototype.update = function () {
     }
     if (playerY < prop.options.y) {
       prop.options.y += BOOST;
+    }
+    return;
+  }
+
+  distanceToBase = Math.floor(
+    Math.sqrt(
+      Math.pow(prop.options.x - specs.baseX, 2) +
+        Math.pow(prop.options.y - specs.baseY, 2),
+    ),
+  );
+
+  if (
+    distanceToBase >= Math.abs(specs.dy) * this.interval ||
+    specs.baseX !== prop.options.x
+  ) {
+    if (specs.baseX > prop.options.x) {
+      prop.options.x += SPEED;
+    }
+    if (specs.baseX < prop.options.x) {
+      prop.options.x += -SPEED;
+    }
+    if (specs.baseY > prop.options.y) {
+      prop.options.y += SPEED;
+    }
+    if (specs.baseY < prop.options.y) {
+      prop.options.y += -SPEED;
     }
     return;
   }
