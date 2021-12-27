@@ -45,8 +45,8 @@ Renderer.prototype.draw = function (prop) {
   if (!type) return;
   this.context.fillStyle = color || 'black';
   this.context.strokeStyle = color || 'black';
-  this.context.setTransform(1, 0, 0, 1, 0, 0);
   this[type](options);
+  this.context.setTransform(1, 0, 0, 1, 0, 0);
 };
 
 Renderer.prototype.drawAll = function () {

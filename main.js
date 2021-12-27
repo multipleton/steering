@@ -34,4 +34,8 @@ for (let i = 0; i < 5; i++) {
   gameLoop.register(human);
 }
 
+const police = new Police(player, { x: 1300, y: 820 });
+renderer.register(police.getProp());
+gameLoop.register(police);
+
 engine.run();
